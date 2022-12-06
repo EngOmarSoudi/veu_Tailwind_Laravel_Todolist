@@ -2,6 +2,7 @@
 
 
     <div class="h-screen w-screen relative bg-white flex ">
+
         <div class="ml-[5vw] mr-[5vh] h-[10vh] w-[90vw] bg-black flex items-center justify-between">
             <div class="min-h-[5vh] min-w-[7vw] ml-[1vw]  text-white">
                 <h5 class=" text-gray-50 text-light ">{{nameTAsk}} {{title}}</h5>
@@ -9,7 +10,15 @@
             <div class="min-h-[5vh] min-w-[7vw]  justify-center mr-[1vw] py-2 px-4 bg-green-300 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShow" >
                 <p class="min-ml-[1.5vw] max-ml-[3vw] self-center font-size-20 ">+</p>
             </div>
+            <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</Link>
 
+                <template v-else>
+                    <Link :href="route('login')" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</Link>
+
+                    <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</Link>
+                </template>
+            </div>
         </div>
 
         <MyModel :is-show="isShow" :toggle-is-show="toggleIsShow">
@@ -127,11 +136,20 @@
 </template>
 <script>
 import MyModel from "@/Pages/myvue/MyModel.vue";
+// import { Head, Link } from '@inertiajs/inertia-vue3';
+
+
 
 export default {
     name: "my",
     components: {MyModel},
+
     props: {
+        // date: new Date.now(),
+        canLogin: Boolean,
+        canRegister: Boolean,
+        laravelVersion: String,
+        phpVersion: String,
         namep:{
             type: String,
             default: "omar"
@@ -144,29 +162,29 @@ export default {
             type: Number,
             default: 1
         },
-        title:{
-            type: String,
-            default:"a"
-        },
-        date:{
-            type: Date,
-            default:'Sun Dec 04 2022 '
-},
-        time:{
-            type: Date,
-            default:'13:41:40'
-        },
+//         title:{
+//             type: String,
+//             default:"a"
+//         },
+//         date:{
+//             type: Date,
+//             default:'Sun Dec 04 2022 '
+// },
+//         time:{
+//             type: Date,
+//             default:'13:41:40'
+//         },
         completed:{
             type: Boolean,
             default: false,
         },
-        details:{
-            type: String,
-            default: "safasv",
-        },
+//         details:{
+//             type: String,
+//             default: "safasv",
+//         },
         completed_at:{
             type: Date,
-            default: Date,
+            default: '2022-12-6 08:55:55',
         },
     },
     data(){

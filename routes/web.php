@@ -36,13 +36,6 @@ Route::middleware([
 });
 
 
-Route::get('/test',function(){
-   return inertia()->render('myvue/my'
-//       ,[
-//       'title' => $name,
-//       "idp"=> $id,
-//   ]
-   );
-})->name("test");
+Route::get('/test',[\App\Http\Controllers\TaskController::class,'index'])->name("test");
 //axios
 Route::post('store',[\App\Http\Controllers\TaskController::class,'store'])->name('store');
