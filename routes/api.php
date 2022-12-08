@@ -19,11 +19,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 //    Route::get('/test', function () {
-//        return Inertia::render('myvue/my');
+//        return Inertia::render('myvue/my',[
+//       'o' => "title",
+//
+//   ]);
 //    })->name('vue');
+Route::post('auth/register', [\App\Http\Controllers\Api\Tasks::class,'createUser']);
+Route::post('auth/login', [\App\Http\Controllers\Api\Tasks::class,'createUser']);
 
-
-Route::get('/test',[\App\Http\Controllers\TaskController::class,'vue'])->name("vue");
+Route::apiResource('/test', \App\Http\Controllers\Api\TestController::class)->middleware('auth:sanctum');
 //axios
 Route::post('store',[\App\Http\Controllers\TaskController::class,'store'])->name('store');
 //Route::put('/{id}',[\App\Http\Controllers\TaskController::class,'update'])->name('update');

@@ -7,17 +7,18 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Http\Kernel;
 
 class TaskController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+//        $this->middleware('auth:api');
 //        $this->middleware('verified');
     }
-    public function vue(){
+    public function Index(){
         $tasks=Task::orderBy('created_at','DESC')->get();
-        return inertia()->render('myvue/my',["tasks"=>$tasks]);
+        return inertia()->render('myvue/my',['status'=>true,"tasks"=>$tasks]);
 //        return Inertia::render('myvue/my');
 //       ,[
 //       'title' => $name,
