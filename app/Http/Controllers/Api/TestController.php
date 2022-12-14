@@ -10,9 +10,9 @@ use Inertia\Inertia;
 class TestController extends Controller
 {
     public function index(){
-//        return response()->json(['status' =>true]);
-        $tasks=Task::orderBy('created_at','DESC')->get();
-        return inertia()->render('myvue/my');
+        return response()->json(['status' =>true]);
+//        $tasks=Task::orderBy('created_at','DESC')->get();
+//        return inertia()->render('myvue/my');
     }
 
 }

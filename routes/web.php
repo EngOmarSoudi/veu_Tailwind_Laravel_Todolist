@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Tasks;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,11 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+//Route::get('login',[])->name('login');
+//Route::get('register',[Tasks::class ,''])->name('register');
+//Route::post('login',[Tasks::class ,'loginUser'])->name('login');
+//Route::post('register',[Tasks::class , 'createUser'])->name('register');
 
 Route::middleware([
     'auth:sanctum',

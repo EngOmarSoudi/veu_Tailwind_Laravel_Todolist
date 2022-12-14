@@ -52,8 +52,8 @@ class Tasks extends Controller
     public function loginUser(Request $request){
         try {
             $valdateUser = Validator::make($request->all(), [
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email',
+//                'name' => 'required',
+                'email' => 'required|email|exists:users,email',
                 'password' => 'required',
             ]);
             if ($valdateUser->fails()) {
@@ -67,6 +67,9 @@ class Tasks extends Controller
                 return response()->json(['status' =>false,'massage'=>'does not match'],401);
             }
             $user=User::where('email', $request->email)->first();
+//            return redirect(to:'api/test',headers:[
+//                'Authentication' => 'Bearer '.$user->createToken('API TOKEN')->plainTextToken
+//            ]);
             return response()->json([
                 'status' =>true,
                 'massage'=>'User Logged in',

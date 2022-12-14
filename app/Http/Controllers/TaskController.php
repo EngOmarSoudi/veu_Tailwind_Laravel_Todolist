@@ -5,20 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Http\Kernel;
 
 class TaskController extends Controller
 {
-    public function __construct()
-    {
-//        $this->middleware('auth:api');
-//        $this->middleware('verified');
-    }
+//    public function __construct()
+//    {
+////        $this->middleware('auth');
+////        $this->middleware('auth:api');
+////        $this->middleware('verified');
+//    }
     public function Index(){
-        $tasks=Task::orderBy('created_at','DESC')->get();
-        return inertia()->render('myvue/my',['status'=>true,"tasks"=>$tasks]);
+        dd('function');
+//        $tasks=Task::orderBy('created_at','DESC')->get();
+//        return inertia()->render('myvue/my',['status'=>true,"tasks"=>$tasks]);
 //        return Inertia::render('myvue/my');
 //       ,[
 //       'title' => $name,
@@ -27,7 +30,7 @@ class TaskController extends Controller
     }
     public function store (Request $request){
 //        dd($request->all());
-        $id=Auth::user()->id;
+//        $id=Auth::user()->id;
         $store=Task::create([
 //            return $request;
             'title'=>$request->get('title'),
@@ -36,7 +39,7 @@ class TaskController extends Controller
             'completed'=>$request->get('completed'),
             'details'=>$request->get('details'),
             'completed_at'=>$request->get('completed_at'),
-            "user_id"=> $id,
+            "user_id"=> 1,
         ]);
         if ($store)
             return response()->json([
@@ -60,5 +63,17 @@ class TaskController extends Controller
                 'details'=>$request->get('details'),
                 'completed_at'=>$request->get('completed_at'),
             ]) ;
+    }
+    public function update(Request $request,$id){
+//        dd($request);
+//        $exist=Task::find($id);
+//        if ($exist){
+//            $exist->completed=$request->task["completed"] ? true :false;
+//            $exist->completed_at=$request->task["completed_at"] ? Carbon::now():null;
+//            $exist->save();
+//            return $exist;
+//
+//        }
+//        return "item not found";
     }
 }

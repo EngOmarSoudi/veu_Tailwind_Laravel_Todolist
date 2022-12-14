@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
 
 
-    public const HOME = 'api/test';
+    public const HOME = 'dashboard';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware('api')
+            Route::middleware(['api'])
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 

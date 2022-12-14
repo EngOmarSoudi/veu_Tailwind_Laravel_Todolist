@@ -24,12 +24,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //
 //   ]);
 //    })->name('vue');
-Route::post('auth/register', [\App\Http\Controllers\Api\Tasks::class,'createUser']);
-Route::post('auth/login', [\App\Http\Controllers\Api\Tasks::class,'createUser']);
+//Route::post('auth/register', [\App\Http\Controllers\Api\Tasks::class,'createUser']);
+//Route::post('auth/login', [\App\Http\Controllers\Api\Tasks::class,'loginUser']);
 
-Route::apiResource('/test', \App\Http\Controllers\Api\TestController::class)->middleware('auth:sanctum');
-//axios
-Route::post('store',[\App\Http\Controllers\TaskController::class,'store'])->name('store');
-//Route::put('/{id}',[\App\Http\Controllers\TaskController::class,'update'])->name('update');
+//Route::apiResource('test', '\App\Http\Controllers\Api\TestController')
+//    ->middleware('auth:sanctum');
+//axios->middleware('auth:sanctum')
+Route::middleware('auth:sanctum')->get('test',[\App\Http\Controllers\TaskController::class,'index'])->name('index');
+//Route::post('store',[\App\Http\Controllers\TaskController::class,'store'])->name('store');
+//Route::post('test/{id}',[\App\Http\Controllers\TaskController::class,'update'])->name('update');
 //Route::delete('/{id}',[\App\Http\Controllers\TaskController::class,'delete'])->name('delete');
 
