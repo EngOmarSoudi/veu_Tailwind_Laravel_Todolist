@@ -1,59 +1,31 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
-class TaskController extends Controller
+class TaskApiController extends Controller
 {
-   public function __construct()
-   {
-       $this->middleware('auth');
-//        $this->middleware('auth:api');
-//        $this->middleware('verified');
-   }
-//     public function Index1()
-//     {
-// //        dd('function');
-//         $tasks = Task::orderBy('created_at', 'DESC')->get();
-//         return response()->json(['loginUsers' => $tasks]);
-
-//     //    return inertia()->render('myvue/my');
-//     //    return Inertia::render('myvue/my');
-// //       ,[
-// //       'title' => $name,
-// //       "idp"=> $id,
-// //   ]
-//     }
-    public function Index()
-    {
-//
+    public function index(){
         $tasks = Task::orderBy('created_at', 'DESC')->get();
-        // return response()->json(['loginUsers' => $tasks]);
-// dd($tasks);
-       return inertia()->render('myvue/my',["tasks"=>$tasks]);
-    //    return Inertia::render('myvue/my');
-//       ,[
-//       'title' => $name,
-//       "idp"=> $id,
-//   ]
+        return response()->json(['loginUsers' => $tasks]);
+
     }
     public function store(Request $request)
     {
-    //    dd($request->get("title"));
-       $id=Auth::user()->id;
+
         $store = Task::create([
-//            return $request;
+
             'title' => $request->get('title'),
             'date' => $request->get('date'),
             'time' => $request->get('time'),
             'completed' => $request->get('completed'),
             'details' => $request->get('details'),
             'completed_at' => $request->get('completed_at'),
-            "user_id" => $id,
+            "user_id" => $request->user()->id,
         ]);
         if ($store) {
             return response()->json([
@@ -82,7 +54,6 @@ class TaskController extends Controller
     }
     public function update(Request $request, $id)
     {
-    //    dd($request);
        $exist=Task::find($id);
        if($exist){
             $exist->update(
@@ -115,4 +86,5 @@ class TaskController extends Controller
             'msg' => __('massages.The Task is not exist'),
         ]);
     }
+
 }

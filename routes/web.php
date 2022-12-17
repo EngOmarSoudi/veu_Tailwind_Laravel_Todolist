@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\Tasks;
+use App\Http\Controllers\Api\loginUsers;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,9 +27,9 @@ Route::get('/', function () {
 });
 
 //Route::get('login',[])->name('login');
-//Route::get('register',[Tasks::class ,''])->name('register');
-//Route::post('login',[Tasks::class ,'loginUser'])->name('login');
-//Route::post('register',[Tasks::class , 'createUser'])->name('register');
+//Route::get('register',[loginUsers::class ,''])->name('register');
+//Route::post('login',[loginUsers::class ,'loginUser'])->name('login');
+//Route::post('register',[loginUsers::class , 'createUser'])->name('register');
 
 Route::middleware([
     'auth:sanctum',
@@ -42,6 +42,6 @@ Route::middleware([
 });
 
 
-Route::get('/test',[\App\Http\Controllers\TaskController::class,'index'])->name("test");
+Route::get('test',[\App\Http\Controllers\TaskController::class,'index'])->name("test");
 ////axios
-//Route::post('store',[\App\Http\Controllers\TaskController::class,'store'])->name('store');
+Route::post('store',[\App\Http\Controllers\TaskController::class,'store'])->name('store');

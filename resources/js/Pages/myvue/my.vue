@@ -5,7 +5,7 @@
 
         <div class="ml-[5vw] mr-[5vh] h-[10vh] w-[90vw] p-2 bg-black flex items-center justify-between">
             <div class="h-full min-w-[7vw] flex items-center ml-[1vw]  text-white">
-                <h5 class=" text-gray-50 text-light ">{{nameTAsk}} {{title}}</h5>
+                <h5 class=" text-gray-50 text-light ">{{nameTAsk}} </h5>
             </div>
             <div class="h-full w-[5vw] flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-300 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShow" >
                 <p class="text-3xl ">+</p>
@@ -25,9 +25,9 @@
             <template #header>
                 <div class="">Hi Omer </div>
             </template>
-            <div class="mr-10 mb-5 h-full w-full xl:flex items-center justify-center ">
+            <div class="mr-10 mb-5 h-full w-[40vw] xl:flex items-center justify-center ">
                 <div class="w-full max-w-xs">
-<!--                    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">-->
+                   <!-- <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">-->
 <!--                        <div class="mb-4">-->
 <!--                            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">-->
 <!--                                Task title-->
@@ -76,9 +76,55 @@
 <!--                    </form>-->
 <!--                    <p class="text-center text-gray-500 text-xs">-->
 <!--                        &copy;2020 Acme Corp. All rights reserved.-->
-<!--                    </p>-->
-                    <div class="w-full max-w-sm">
-                        <div class="md:flex md:items-center mb-6">
+<!--                    </p> -->
+<div class="w-full max-w-lg ml-5">
+
+
+  <div class="flex w-full flex-wrap -mx-3 mb-6 ">
+    <div class="w-full md:w px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+        Title
+      </label>
+      <input  v-model="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Mohammed">
+      <p v-show="taskErorrs.title" class="text-red-500 text-xs italic">Please fill out this field.</p>
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+        Time
+      </label>
+      <input v-model="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="time" placeholder="Doe">
+      <p v-show="taskErorrs.time" class="text-red-500 text-xs italic">Please fill out this field.</p>
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+        Date
+      </label>
+      <input v-model="date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="Doe">
+      <p v-show="taskErorrs.date" class="text-red-500 text-xs italic">Please fill out this field.</p>
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+        Details
+      </label>
+      <input v-model="details" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Details">
+      <!-- </textarea> -->
+        <p v-show="taskErorrs.details" class="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
+    </div>
+    <!-- <div class="flex items-center justify-center"> -->
+                        
+                            <div class="w-full ml-3 flex items-center self-center">
+                                <button @click="submit" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                    Add Task
+                                </button>
+                            </div>
+                        <!-- </div> -->
+  </div>
+
+</div>
+                    <!-- <div class="w-full max-w-sm"> -->
+                        <!-- <div class="md:flex md:items-center mb-6">
                             <div class="md:w-1/3">
                                 <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-title">
                                     Task title
@@ -87,8 +133,11 @@
                             <div class="md:w-2/3">
                                 <input id="inline-title" v-model="title" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"  type="text" >
                             </div>
-                        </div>
-                        <div class="md:flex md:items-center mb-6">
+                            <span class="text-red-600" v-show="taskErorrs.title">
+                                Title is required
+                            </span>
+                        </div> -->
+                        <!-- <div class="md:flex md:items-center mb-6">
                             <div class="md:w-1/3">
                                 <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-date">
                                     Task date
@@ -97,8 +146,11 @@
                             <div class="md:w-2/3">
                                 <input id="inline-date"  v-model="date" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"  type="date" >
                             </div>
-                        </div>
-                        <div class="md:flex md:items-center mb-6">
+                            <span class="text-red-600"  v-show="taskErorrs.date">
+                                Date is required
+                            </span>
+                        </div> -->
+                        <!-- <div class="md:flex md:items-center mb-6">
                             <div class="md:w-1/3">
                                 <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-time">
                                     Task time
@@ -107,8 +159,11 @@
                             <div class="md:w-2/3">
                                 <input id="inline-time" v-model="time" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"  type="time" >
                             </div>
-                        </div>
-                        <div class="md:flex md:items-center mb-6">
+                            <span class="text-red-600"  v-show="taskErorrs.time">
+                                Time is required
+                            </span>
+                        </div> -->
+                        <!-- <div class="md:flex md:items-center mb-6">
                             <div class="md:w-1/3">
                                 <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-details">
                                     Task details
@@ -116,18 +171,15 @@
                             </div>
                             <div class="md:w-2/3">
                                 <input id="inline-details" v-model="details" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"  type="textarea" >
-                            </div>
-                        </div>
 
-                        <div class="md:flex md:items-center">
-                            <div class="md:w-1/3"></div>
-                            <div class="md:w-2/3">
-                                <button @click="submit" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                                    Add Task
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                                </div>
+                            <span class="text-red-600"  v-show="taskErorrs.details">
+                                details is required
+                            </span>
+                        </div> -->
+
+
+                    <!-- </div> -->
                 </div>
 
             </div>
@@ -184,7 +236,7 @@ export default {
 //         },
         completed_at:{
             type: String,
-            default: "", 
+            default: "",
         },
     },
     data(){
@@ -197,7 +249,13 @@ export default {
             time:this.time,
             completed_at:this.completed_at,
             details:this.details,
-            completed:this.completed,
+            completed: this.completed,
+            taskErorrs: {
+              title:false,
+              date:false,
+              time:false,
+              details:false,
+            },
 
         }
     },
@@ -210,28 +268,38 @@ export default {
         },
         submit(){
             // this.$inertia.visit(this.route('test',{name:this.name,id:this.id}))
-            axios.post(this.route('store'),{
-                title:this.title,
-                date:this.date,
-                time:this.time,
-                completed_at:this.completed_at,
-                details:this.details,
-                completed:this.completed,
+            this.title == '' ? this.taskErorrs.title = false : this.taskErorrs.title = true
+            this.date == '' ? this.taskErorrs.date = false : this.taskErorrs.date = true
+            this.time == '' ? this.taskErorrs.time = false : this.taskErorrs.time = true
+            this.details == '' ? this.taskErorrs.details = false : this.taskErorrs.details = true
+            if (this.taskErorrs.title && this.taskErorrs.date && this.taskErorrs.time && this.taskErorrs.details)
+            {
+                axios.post( this.route( 'store' ), {
 
-            }).then(response=>{
-                this.title = response.data.title;
-                this.date = response.data.date;
-                this.time = response.data.time;
-                this.details = response.data.details;
-                this.completed_at = response.data.completed_at;
-                this.completed = response.data.completed;
+                    title: this.title,
+                    date: this.date,
+                    time: this.time,
+                    completed_at: this.completed_at,
+                    details: this.details,
+                    completed: this.completed,
+
+                } ).then( response =>
+                {
+                    this.title = response.data.title;
+                    this.date = response.data.date;
+                    this.time = response.data.time;
+                    this.details = response.data.details;
+                    this.completed_at = response.data.completed_at;
+                    this.completed = response.data.completed;
 
 
 
-                // this.name=response.data.name;
-                // this.id=response.data.id;
-                this.toggleIsShow();
-            })
+                    // this.name=response.data.name;
+                    // this.id=response.data.id;.catch( errors => console.log( errors ) )
+                    this.toggleIsShow();
+                } );
+            }
+
         }
     }
 }
