@@ -3,12 +3,12 @@
 
     <div class="h-screen w-screen relative bg-white flex ">
 
-        <div class="ml-[5vw] mr-[5vh] h-[10vh] w-[90vw] bg-black flex items-center justify-between">
-            <div class="min-h-[5vh] min-w-[7vw] ml-[1vw]  text-white">
+        <div class="ml-[5vw] mr-[5vh] h-[10vh] w-[90vw] p-2 bg-black flex items-center justify-between">
+            <div class="h-full min-w-[7vw] flex items-center ml-[1vw]  text-white">
                 <h5 class=" text-gray-50 text-light ">{{nameTAsk}} {{title}}</h5>
             </div>
-            <div class="min-h-[5vh] min-w-[7vw]  justify-center mr-[1vw] py-2 px-4 bg-green-300 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShow" >
-                <p class="min-ml-[1.5vw] max-ml-[3vw] self-center font-size-20 ">+</p>
+            <div class="h-full w-[5vw] flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-300 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShow" >
+                <p class="text-3xl ">+</p>
             </div>
             <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                 <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</Link>
@@ -25,7 +25,7 @@
             <template #header>
                 <div class="">Hi Omer </div>
             </template>
-            <div class="mr-10 mb-5 h-full w-full xl: flex items-center justify-center ">
+            <div class="mr-10 mb-5 h-full w-full xl:flex items-center justify-center ">
                 <div class="w-full max-w-xs">
 <!--                    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">-->
 <!--                        <div class="mb-4">-->
@@ -183,8 +183,8 @@ export default {
 //             default: "safasv",
 //         },
         completed_at:{
-            type: Date,
-            default: '2022-12-6 08:55:55',
+            type: String,
+            default: "", 
         },
     },
     data(){

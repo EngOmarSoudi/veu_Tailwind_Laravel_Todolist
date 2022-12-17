@@ -42,6 +42,6 @@ Route::middleware([
 });
 
 
-//Route::get('/test',[\App\Http\Controllers\TaskController::class,'index'])->name("test");
+Route::get('/test',[\App\Http\Controllers\TaskController::class,'index'])->name("test");
 ////axios
 //Route::post('store',[\App\Http\Controllers\TaskController::class,'store'])->name('store');
