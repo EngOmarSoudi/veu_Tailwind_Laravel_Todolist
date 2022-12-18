@@ -1,7 +1,7 @@
 <template>
 
 
-    <div class="h-screen w-screen relative bg-white flex ">
+    <div class="h-screen-1/2 w-screen relative bg-white flex ">
 
         <div class="ml-[5vw] mr-[5vh] h-[10vh] w-[90vw] p-2 bg-black flex items-center justify-between">
             <div class="h-full min-w-[7vw] flex items-center ml-[1vw]  text-white">
@@ -10,24 +10,381 @@
             <div class="h-full w-[5vw] flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-300 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShow" >
                 <p class="text-3xl ">+</p>
             </div>
-            <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</Link>
 
-                <template v-else>
-                    <Link :href="route('login')" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</Link>
 
-                    <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</Link>
-                </template>
-            </div>
         </div>
 
-        <MyModel :is-show="isShow" :toggle-is-show="toggleIsShow">
+
+
+
+    </div>
+    <div class="h-screen w-screen relative bg-white flex ">
+        <div class="ml-[5vw] mr-[5vh] h-fit w-[90vw] p-2 bg-gray-200 flex items-center justify-center">
+        <div class="w-full h-full overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="py-3 px-6">
+                    Completed
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Task name
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Time
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Date
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Created at
+                </th>
+                <th scope="col" colspan="2" class="py-3 px-6">
+
+                </th>
+
+            </tr>
+                 </thead>
+                    <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="py-4 px-12">
+                        <input type="checkbox">
+                    </td>
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Apple MacBook Pro 17"
+                    </th>
+                    <td class="py-4 px-6">
+                        22:22
+                    </td>
+                    <td class="py-4 px-6">
+                        2022-12-30
+                    </td>
+                    <td class="py-4 px-6">
+                        2022-12-20|22:22
+                    </td>
+                    <td class="py-4 px-2">
+                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-600 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShowEdit" >
+                            Edit
+                        </button>
+                    </td>
+                    <td class="py-4 px-2">
+                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-red-600 hover:bg-red-700 cursor-pointer rounded-lg" @click="toggleIsShowDelete" >
+                            Delete
+                        </button>
+                    </td>
+
+                </tr>
+
+                    </tbody>
+            </table>
+        </div>
+        </div>
+
+    </div>
+<MyModel :is-show="isShowEdit" :toggle-is-show="toggleIsShowEdit">
+    <template #header>
+                <div class="">Edit </div>
+    </template>
+    <div class="mr-10 mb-5 h-full w-[40vw] xl:flex items-center justify-center ">
+                <div class="w-full max-w-xs">
+
+                    <div class="w-full max-w-lg ml-5">
+
+
+                    <div class="flex w-full flex-wrap -mx-3 mb-6 ">
+                        <div class="w-full md:w px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                            Title
+                        </label>
+                        <input  v-model="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Mohammed">
+                        <p v-show="taskErorrs.title" class="text-red-500 text-xs italic">Please fill out this field.</p>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                            Time
+                        </label>
+                        <input v-model="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="time" placeholder="Doe">
+                        <p v-show="taskErorrs.time" class="text-red-500 text-xs italic">Please fill out this field.</p>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                            Date
+                        </label>
+                        <input v-model="date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="Doe">
+                        <p v-show="taskErorrs.date" class="text-red-500 text-xs italic">Please fill out this field.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                            Details
+                        </label>
+                        <input v-model="details" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Details">
+                        <!-- </textarea> -->
+                            <p v-show="taskErorrs.details" class="text-red-600 text-xs italic">Please fill out this field.</p>
+                        </div>
+                        <!-- <div class="flex items-center justify-center"> -->
+
+                                                <div class="w-full ml-3 flex items-center self-center">
+                                                    <button @click="submit" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                                        Add Task
+                                                    </button>
+                                                </div>
+                                            <!-- </div> -->
+                    </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+</MyModel>
+<MyModel :is-show="isShowDelete" :toggle-is-show="toggleIsShowDelete">
+    <template #header>
+                <div class="">Delete </div>
+    </template>
+    <h3>
+            Are You Sure You want to delete this task?
+    </h3>
+    <div class="flex justify-end items-end py-9">
+
+  <button @click="deleteTask" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-l">
+    Delete
+  </button>
+  <button @click="Cancel" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-r">
+    Cancle
+  </button>
+</div>
+    <!-- <div class="mr-10 mb-5 h-full w-fit xl:flex items-center justify-center mt-3 ">
+                <div class="w-full max-w-xs flex justify-center items-center">
+
+                    <div class="w-full max-w-lg ml-5 flex justify-between">
+    <div class="w-full flex  justify-between">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+  Button
+</button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+  Button
+</button>
+        <button @click="Delete" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+            Delete
+        </button>
+        <button @click="cancle" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+            Cancle
+        </button>
+    </div>
+    </div>
+    </div>
+    </div> -->
+</MyModel>
+<MyModel :is-show="isShow" :toggle-is-show="toggleIsShow">
             <template #header>
                 <div class="">Hi Omer </div>
             </template>
             <div class="mr-10 mb-5 h-full w-[40vw] xl:flex items-center justify-center ">
                 <div class="w-full max-w-xs">
-                   <!-- <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">-->
+
+                    <div class="w-full max-w-lg ml-5">
+
+
+                    <div class="flex w-full flex-wrap -mx-3 mb-6 ">
+                        <div class="w-full md:w px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                            Title
+                        </label>
+                        <input  v-model="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Mohammed">
+                        <p v-show="taskErorrs.title" class="text-red-500 text-xs italic">Please fill out this field.</p>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                            Time
+                        </label>
+                        <input v-model="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="time" placeholder="Doe">
+                        <p v-show="taskErorrs.time" class="text-red-500 text-xs italic">Please fill out this field.</p>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                            Date
+                        </label>
+                        <input v-model="date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="Doe">
+                        <p v-show="taskErorrs.date" class="text-red-500 text-xs italic">Please fill out this field.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                            Details
+                        </label>
+                        <input v-model="details" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Details">
+                        <!-- </textarea> -->
+                            <p v-show="taskErorrs.details" class="text-red-600 text-xs italic">Please fill out this field.</p>
+                        </div>
+                        <!-- <div class="flex items-center justify-center"> -->
+
+                                                <div class="w-full ml-3 flex items-center self-center">
+                                                    <button @click="submit" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                                        Add Task
+                                                    </button>
+                                                </div>
+                                            <!-- </div> -->
+                    </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </MyModel>
+
+</template>
+<script>
+import MyModel from "@/Pages/myvue/MyModel.vue";
+import MyModelEdit from "@/Pages/myvue/MyModelEdit.vue";
+import MyModelDelete from "@/Pages/myvue/MyModelDelete.vue";
+import axios from 'axios';
+// import { Head, Link } from '@inertiajs/inertia-vue3';
+
+
+
+export default {
+    name: "my",
+    components: {MyModel,MyModelEdit,MyModelDelete},
+
+    props: {
+        // date: new Date.now(),
+        canLogin: Boolean,
+        canRegister: Boolean,
+        laravelVersion: String,
+        phpVersion: String,
+        namep:{
+            type: String,
+            default: "omar"
+        },
+        nameTAsk: {
+            type: String,
+            default: "Add a New Task"
+        },
+        idp: {
+            type: Number,
+            default: 1
+        },
+//         title:{
+//             type: String,
+//             default:"a"
+//         },
+//         date:{
+//             type: Date,
+//             default:'Sun Dec 04 2022 '
+// },
+//         time:{
+//             type: Date,
+//             default:'13:41:40'
+//         },
+        completed:{
+            type: Boolean,
+            default: false,
+        },
+//         details:{
+//             type: String,
+//             default: "safasv",
+//         },
+        completed_at:{
+            type: String,
+            default: "",
+        },
+    },
+    data(){
+        return {
+            isShow:false,
+            isShowEdit:false,
+            isShowDelete:false,
+            name:this.namep,
+            id:this.idp,
+            title:this.title,
+            date:this.date,
+            time:this.time,
+            completed_at:this.completed_at,
+            details:this.details,
+            completed: this.completed,
+            taskErorrs: {
+              title:false,
+              date:false,
+              time:false,
+              details:false,
+            },
+            Tasks: {
+
+            }
+
+        }
+    },
+    methods: {
+
+        // hideModel(){
+        //     this.isShow = false
+        // },
+        getTasks ()
+        {
+            axios.get( this.route( 'tasks' )).then( response =>
+            {
+                this.Tasks = response.data
+            }).catch(errors=>{console.log(errors)})
+        },
+        toggleIsShowEdit () {
+            this.isShowEdit = !this.isShowEdit
+        },
+        toggleIsShowDelete () {
+            this.isShowDelete = !this.isShowDelete
+         },
+        toggleIsShow(){
+            this.isShow = !this.isShow
+            this.taskErorrs= {
+              title:false,
+              date:false,
+              time:false,
+              details:false,
+            }
+
+        },
+        submit(){
+            // this.$inertia.visit(this.route('test',{name:this.name,id:this.id}))
+            this.title == '' ? this.taskErorrs.title = false : this.taskErorrs.title = true
+            this.date == '' ? this.taskErorrs.date = false : this.taskErorrs.date = true
+            this.time == '' ? this.taskErorrs.time = false : this.taskErorrs.time = true
+            this.details == '' ? this.taskErorrs.details = false : this.taskErorrs.details = true
+            if (this.taskErorrs.title && this.taskErorrs.date && this.taskErorrs.time && this.taskErorrs.details)
+            {
+                axios.post( this.route( 'store' ), {
+
+                    title: this.title,
+                    date: this.date,
+                    time: this.time,
+                    completed_at: this.completed_at,
+                    details: this.details,
+                    completed: this.completed,
+
+                } ).then( response =>
+                {
+                    this.title = response.data.title;
+                    this.date = response.data.date;
+                    this.time = response.data.time;
+                    this.details = response.data.details;
+                    this.completed_at = response.data.completed_at;
+                    this.completed = response.data.completed;
+
+
+
+                    // this.name=response.data.name;
+                    // this.id=response.data.id;.catch( errors => console.log( errors ) )
+                    // this.toggleIsShow();
+                } ).catch( errors => { console.log( errors ) } ).finally( () => { this.toggleIsShow() } );
+            }
+
+        }
+    }
+}
+</script>
+<!-- <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">-->
 <!--                        <div class="mb-4">-->
 <!--                            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">-->
 <!--                                Task title-->
@@ -77,53 +434,7 @@
 <!--                    <p class="text-center text-gray-500 text-xs">-->
 <!--                        &copy;2020 Acme Corp. All rights reserved.-->
 <!--                    </p> -->
-<div class="w-full max-w-lg ml-5">
-
-
-  <div class="flex w-full flex-wrap -mx-3 mb-6 ">
-    <div class="w-full md:w px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-        Title
-      </label>
-      <input  v-model="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Mohammed">
-      <p v-show="taskErorrs.title" class="text-red-500 text-xs italic">Please fill out this field.</p>
-    </div>
-    <div class="w-full md:w-1/2 px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-        Time
-      </label>
-      <input v-model="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="time" placeholder="Doe">
-      <p v-show="taskErorrs.time" class="text-red-500 text-xs italic">Please fill out this field.</p>
-    </div>
-    <div class="w-full md:w-1/2 px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-        Date
-      </label>
-      <input v-model="date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="Doe">
-      <p v-show="taskErorrs.date" class="text-red-500 text-xs italic">Please fill out this field.</p>
-    </div>
-  </div>
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-        Details
-      </label>
-      <input v-model="details" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Details">
-      <!-- </textarea> -->
-        <p v-show="taskErorrs.details" class="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
-    </div>
-    <!-- <div class="flex items-center justify-center"> -->
-                        
-                            <div class="w-full ml-3 flex items-center self-center">
-                                <button @click="submit" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                                    Add Task
-                                </button>
-                            </div>
-                        <!-- </div> -->
-  </div>
-
-</div>
-                    <!-- <div class="w-full max-w-sm"> -->
+  <!-- <div class="w-full max-w-sm"> -->
                         <!-- <div class="md:flex md:items-center mb-6">
                             <div class="md:w-1/3">
                                 <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-title">
@@ -180,127 +491,12 @@
 
 
                     <!-- </div> -->
-                </div>
+  <!-- <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</Link>
 
-            </div>
-        </MyModel>
-    </div>
-</template>
-<script>
-import MyModel from "@/Pages/myvue/MyModel.vue";
-// import { Head, Link } from '@inertiajs/inertia-vue3';
+                <template v-else>
+                    <Link :href="route('login')" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</Link>
 
-
-
-export default {
-    name: "my",
-    components: {MyModel},
-
-    props: {
-        // date: new Date.now(),
-        canLogin: Boolean,
-        canRegister: Boolean,
-        laravelVersion: String,
-        phpVersion: String,
-        namep:{
-            type: String,
-            default: "omar"
-        },
-        nameTAsk: {
-            type: String,
-            default: "Add a New Task"
-        },
-        idp: {
-            type: Number,
-            default: 1
-        },
-//         title:{
-//             type: String,
-//             default:"a"
-//         },
-//         date:{
-//             type: Date,
-//             default:'Sun Dec 04 2022 '
-// },
-//         time:{
-//             type: Date,
-//             default:'13:41:40'
-//         },
-        completed:{
-            type: Boolean,
-            default: false,
-        },
-//         details:{
-//             type: String,
-//             default: "safasv",
-//         },
-        completed_at:{
-            type: String,
-            default: "",
-        },
-    },
-    data(){
-        return {
-            isShow:false,
-            name:this.namep,
-            id:this.idp,
-            title:this.title,
-            date:this.date,
-            time:this.time,
-            completed_at:this.completed_at,
-            details:this.details,
-            completed: this.completed,
-            taskErorrs: {
-              title:false,
-              date:false,
-              time:false,
-              details:false,
-            },
-
-        }
-    },
-    methods:{
-        // hideModel(){
-        //     this.isShow = false
-        // },
-        toggleIsShow(){
-            this.isShow = !this.isShow
-        },
-        submit(){
-            // this.$inertia.visit(this.route('test',{name:this.name,id:this.id}))
-            this.title == '' ? this.taskErorrs.title = false : this.taskErorrs.title = true
-            this.date == '' ? this.taskErorrs.date = false : this.taskErorrs.date = true
-            this.time == '' ? this.taskErorrs.time = false : this.taskErorrs.time = true
-            this.details == '' ? this.taskErorrs.details = false : this.taskErorrs.details = true
-            if (this.taskErorrs.title && this.taskErorrs.date && this.taskErorrs.time && this.taskErorrs.details)
-            {
-                axios.post( this.route( 'store' ), {
-
-                    title: this.title,
-                    date: this.date,
-                    time: this.time,
-                    completed_at: this.completed_at,
-                    details: this.details,
-                    completed: this.completed,
-
-                } ).then( response =>
-                {
-                    this.title = response.data.title;
-                    this.date = response.data.date;
-                    this.time = response.data.time;
-                    this.details = response.data.details;
-                    this.completed_at = response.data.completed_at;
-                    this.completed = response.data.completed;
-
-
-
-                    // this.name=response.data.name;
-                    // this.id=response.data.id;.catch( errors => console.log( errors ) )
-                    this.toggleIsShow();
-                } );
-            }
-
-        }
-    }
-}
-</script>
+                    <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</Link>
+                </template>
+            </div> -->
