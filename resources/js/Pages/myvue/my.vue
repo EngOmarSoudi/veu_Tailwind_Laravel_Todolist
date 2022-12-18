@@ -5,7 +5,7 @@
 
         <div class="ml-[5vw] mr-[5vh] h-[10vh] w-[90vw] p-2 bg-black flex items-center justify-between">
             <div class="h-full min-w-[7vw] flex items-center ml-[1vw]  text-white">
-                <h5 class=" text-gray-50 text-light ">{{nameTAsk}} </h5>
+                <h5 class=" text-gray-50 text-light ">{{nameTAsk}} {{ title }} </h5>
             </div>
             <div class="h-full w-[5vw] flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-300 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShow" >
                 <p class="text-3xl ">+</p>
@@ -25,10 +25,13 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="py-3 px-6">
+                    #
+                </th>
+                <th scope="col" class="py-3 px-6">
                     Completed
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Task name
+                     {{ date }}
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Time
@@ -39,6 +42,9 @@
                 <th scope="col" class="py-3 px-6">
                     Created at
                 </th>
+                <th scope="col" class="py-3 px-6">
+                    Details
+                </th>
                 <th scope="col" colspan="2" class="py-3 px-6">
 
                 </th>
@@ -46,21 +52,27 @@
             </tr>
                  </thead>
                     <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr v-for="(task,index) in tasks" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
+                    <td class="py-4 px-12">
+                        {{ index+1 }}
+                    </td>
                     <td class="py-4 px-12">
                         <input type="checkbox">
                     </td>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Apple MacBook Pro 17"
+                        {{ task.title }}
                     </th>
                     <td class="py-4 px-6">
-                        22:22
+                        {{ task.time }}
                     </td>
                     <td class="py-4 px-6">
-                        2022-12-30
+                        {{ task.date }}
                     </td>
                     <td class="py-4 px-6">
-                        2022-12-20|22:22
+                        {{ task.Created_at }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ task.details.length <= 10 ? task.details:task.details.substr(0,10) + "..." }}
                     </td>
                     <td class="py-4 px-2">
                         <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-600 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShowEdit" >
@@ -127,7 +139,7 @@
 
                                                 <div class="w-full ml-3 flex items-center self-center">
                                                     <button @click="submit" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                                                        Add Task
+                                                        Edit Task
                                                     </button>
                                                 </div>
                                             <!-- </div> -->
@@ -149,7 +161,7 @@
   <button @click="deleteTask" class="bg-red-300 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-l">
     Delete
   </button>
-  <button @click="Cancel" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-r">
+  <button @click="Cancle" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-r">
     Cancle
   </button>
 </div>
@@ -310,7 +322,7 @@ export default {
               time:false,
               details:false,
             },
-            Tasks: {
+            tasks: {
 
             }
 
@@ -321,12 +333,16 @@ export default {
         // hideModel(){
         //     this.isShow = false
         // },
+        mounted ()
+        {
+            this.getTasks()
+        },
         getTasks ()
         {
-            axios.get( this.route( 'tasks' )).then( response =>
+            axios.get( this.route( 'getTasks' ) ).then( response =>
             {
-                this.Tasks = response.data
-            }).catch(errors=>{console.log(errors)})
+                this.tasks = response.data
+            } ).catch( errors => { console.log( errors ) } );
         },
         toggleIsShowEdit () {
             this.isShowEdit = !this.isShowEdit
@@ -342,8 +358,10 @@ export default {
               time:false,
               details:false,
             }
-
         },
+            Cancle(){
+                this.toggleIsShowDelete()
+            },
         submit(){
             // this.$inertia.visit(this.route('test',{name:this.name,id:this.id}))
             this.title == '' ? this.taskErorrs.title = false : this.taskErorrs.title = true

@@ -28,6 +28,9 @@ class TaskController extends Controller
 // //       "idp"=> $id,
 // //   ]
 //     }
+    public function getTasks(){
+        return response()->json([Task::latest()->get()]);
+    }
     public function Index()
     {
 //
