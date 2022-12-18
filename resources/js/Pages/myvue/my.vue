@@ -141,14 +141,12 @@
 </MyModel>
 <MyModel :is-show="isShowDelete" :toggle-is-show="toggleIsShowDelete">
     <template #header>
-                <div class="">Delete </div>
+                <div class="">Are You Sure </div>
     </template>
-    <h3>
-            Are You Sure You want to delete this task?
-    </h3>
-    <div class="flex justify-end items-end py-9">
 
-  <button @click="deleteTask" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-l">
+    <div class="flex justify-center items-end py-9 ml-3">
+
+  <button @click="deleteTask" class="bg-red-300 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-l">
     Delete
   </button>
   <button @click="Cancel" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-r">
