@@ -5,7 +5,7 @@
 
         <div class="ml-[5vw] mr-[5vh] h-[10vh] w-[90vw] p-2 bg-black flex items-center justify-between">
             <div class="h-full min-w-[7vw] flex items-center ml-[1vw]  text-white">
-                <h5 class=" text-gray-50 text-light ">{{nameTAsk}} {{ title }} </h5>
+                <h5 class=" text-gray-50 text-light ">{{nameTAsk}}  </h5>
             </div>
             <div class="h-full w-[5vw] flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-300 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShow" >
                 <p class="text-3xl ">+</p>
@@ -31,7 +31,7 @@
                     Completed
                 </th>
                 <th scope="col" class="py-3 px-6">
-                     {{ date }}
+                     title
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Time
@@ -52,18 +52,19 @@
             </tr>
                  </thead>
                     <tbody>
-                <tr v-for="(task,index) in tasks" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
+                <tr v-for="(task,index) in data1" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
+                <!-- <tr v-for="item in task" :key="item.id+1" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" > -->
                     <td class="py-4 px-12">
-                        {{ index+1 }}
+                       {{ index+1 }}
                     </td>
                     <td class="py-4 px-12">
                         <input type="checkbox">
                     </td>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ task.title }}
+                        {{ task.title.length <= 10 ? task.title:task.title.substr(0,10) + "..." }}
                     </th>
                     <td class="py-4 px-6">
-                        {{ task.time }}
+                       {{ task.time }}
                     </td>
                     <td class="py-4 px-6">
                         {{ task.date }}
@@ -75,7 +76,7 @@
                         {{ task.details.length <= 10 ? task.details:task.details.substr(0,10) + "..." }}
                     </td>
                     <td class="py-4 px-2">
-                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-600 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShowEdit" >
+                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-600 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShowEdit(task)" >
                             Edit
                         </button>
                     </td>
@@ -86,6 +87,7 @@
                     </td>
 
                 </tr>
+                <!-- </tr> -->
 
                     </tbody>
             </table>
@@ -95,7 +97,7 @@
     </div>
 <MyModel :is-show="isShowEdit" :toggle-is-show="toggleIsShowEdit">
     <template #header>
-                <div class="">Edit </div>
+                <div  class="">Edit </div>
     </template>
     <div class="mr-10 mb-5 h-full w-[40vw] xl:flex items-center justify-center ">
                 <div class="w-full max-w-xs">
@@ -138,7 +140,7 @@
                         <!-- <div class="flex items-center justify-center"> -->
 
                                                 <div class="w-full ml-3 flex items-center self-center">
-                                                    <button @click="submit" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                                    <button @click="edit(idp)" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                                                         Edit Task
                                                     </button>
                                                 </div>
@@ -153,7 +155,7 @@
 </MyModel>
 <MyModel :is-show="isShowDelete" :toggle-is-show="toggleIsShowDelete">
     <template #header>
-                <div class="">Are You Sure </div>
+                <div class="">Are You Sure  </div>
     </template>
 
     <div class="flex justify-center items-end py-9 ml-3">
@@ -274,10 +276,10 @@ export default {
             type: String,
             default: "Add a New Task"
         },
-        idp: {
-            type: Number,
-            default: 1
-        },
+        // idp: {
+        //     type: Number,
+        //     default: 0
+        // },
 //         title:{
 //             type: String,
 //             default:"a"
@@ -302,14 +304,19 @@ export default {
             type: String,
             default: "",
         },
+        data1:{
+            type: Array,
+            default:()=>[]
+        },
     },
     data(){
         return {
+            data1:{},
             isShow:false,
             isShowEdit:false,
             isShowDelete:false,
             name:this.namep,
-            id:this.idp,
+            idp:0,
             title:this.title,
             date:this.date,
             time:this.time,
@@ -323,30 +330,36 @@ export default {
               details:false,
             },
             tasks: {
-
-            }
+            },
 
         }
+    },
+    mounted ()
+        {
+            this.getTasks()
     },
     methods: {
 
         // hideModel(){
         //     this.isShow = false
         // },
-        mounted ()
-        {
-            this.getTasks()
-        },
+
         getTasks ()
         {
             axios.get( this.route( 'getTasks' ) ).then( response =>
             {
-                this.tasks = response.data
+                this.data1 = response.data
             } ).catch( errors => { console.log( errors ) } );
         },
-        toggleIsShowEdit () {
+        toggleIsShowEdit (task) {
             this.isShowEdit = !this.isShowEdit
+            this.title= task.title;
+            this.time= task.time;
+            this.date= task.date;
+            this.details = task.details;
+            this.idp = task.id;
         },
+
         toggleIsShowDelete () {
             this.isShowDelete = !this.isShowDelete
          },
@@ -395,6 +408,42 @@ export default {
                     // this.toggleIsShow();
                 } ).catch( errors => { console.log( errors ) } ).finally( () => { this.toggleIsShow() } );
             }
+
+        },
+        edit(id){
+            // this.$inertia.visit(this.route('test',{name:this.name,id:this.id}))
+            // this.title == '' ? this.taskErorrs.title = false : this.taskErorrs.title = true
+            // this.date == '' ? this.taskErorrs.date = false : this.taskErorrs.date = true
+            // this.time == '' ? this.taskErorrs.time = false : this.taskErorrs.time = true
+            // this.details == '' ? this.taskErorrs.details = false : this.taskErorrs.details = true
+            // this.taskErorrs.title && this.taskErorrs.date && this.taskErorrs.time && this.taskErorrs.details
+            // if (true)
+            // {
+                axios.post( this.route( 'edit' ), {
+                    id:id,
+                    title: this.title,
+                    date: this.date,
+                    time: this.time,
+                    completed_at: this.completed_at,
+                    details: this.details,
+                    completed: this.completed,
+
+                } ).then( response =>
+                {
+                    this.title = response.data.title;
+                    this.date = response.data.date;
+                    this.time = response.data.time;
+                    this.details = response.data.details;
+                    this.completed_at = response.data.completed_at;
+                    this.completed = response.data.completed;
+
+
+
+                    // this.name=response.data.name;
+                    // this.id=response.data.id;.catch( errors => console.log( errors ) )
+                    // this.toggleIsShow();
+                } ).catch( errors => { console.log( errors ) } ).finally( () => { this.toggleIsShowEdit(task) } );
+            // }
 
         }
     }

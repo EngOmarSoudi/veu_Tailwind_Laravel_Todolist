@@ -29,7 +29,9 @@ class TaskController extends Controller
 // //   ]
 //     }
     public function getTasks(){
-        return response()->json([Task::latest()->get()]);
+        // ddd("ddd");
+        $tasks=Task::latest()->get();
+        return response()->json($tasks);
     }
     public function Index()
     {
@@ -37,8 +39,8 @@ class TaskController extends Controller
         $tasks = Task::orderBy('created_at', 'DESC')->get();
         // return response()->json(['loginUsers' => $tasks]);
 // dd($tasks);
-       return inertia()->render('myvue/my',["tasks"=>$tasks]);
-    //    return Inertia::render('myvue/my');
+       return inertia()->render('myvue/my');
+    //    return Inertia::render('myvue/my');,["tasks"=>$tasks]
 //       ,[
 //       'title' => $name,
 //       "idp"=> $id,

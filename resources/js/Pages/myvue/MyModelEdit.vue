@@ -24,7 +24,9 @@
 <script>
 export default {
   name: 'MyModelEdit',
-  props: {
+    props:
+    // id:id,
+    {
     isShowEdit: {
         type:Boolean,
         default:false,

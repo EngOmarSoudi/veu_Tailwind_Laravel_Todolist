@@ -46,4 +46,5 @@ Route::get('tasks',[\App\Http\Controllers\TaskController::class,'index'])->name(
 Route::get('getTasks',[\App\Http\Controllers\TaskController::class,'getTasks'])->name("getTasks");
 ////axios
 Route::post('store',[\App\Http\Controllers\TaskController::class,'store'])->name('store');
-Route::post('tasks/{id}',[\App\Http\Controllers\TaskController::class,'store'])->name('delete');
+Route::delete('delete/{id}',[\App\Http\Controllers\TaskController::class,'store'])->name('delete');
+Route::put('{id}',[\App\Http\Controllers\TaskController::class,'store'])->name('edit');
