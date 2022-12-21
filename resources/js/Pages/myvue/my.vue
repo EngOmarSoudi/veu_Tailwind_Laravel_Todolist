@@ -81,7 +81,7 @@
                         </button>
                     </td>
                     <td class="py-4 px-2">
-                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-red-600 hover:bg-red-700 cursor-pointer rounded-lg" @click="toggleIsShowDelete" >
+                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-red-600 hover:bg-red-700 cursor-pointer rounded-lg" @click="toggleIsShowDelete(task.id)" >
                             Delete
                         </button>
                     </td>
@@ -97,7 +97,7 @@
     </div>
 <MyModel :is-show="isShowEdit" :toggle-is-show="toggleIsShowEdit">
     <template #header>
-                <div  class="">Edit </div>
+                <div  class="">Edit {{ this.idp }}</div>
     </template>
     <div class="mr-10 mb-5 h-full w-[40vw] xl:flex items-center justify-center ">
                 <div class="w-full max-w-xs">
@@ -140,7 +140,7 @@
                         <!-- <div class="flex items-center justify-center"> -->
 
                                                 <div class="w-full ml-3 flex items-center self-center">
-                                                    <button @click="edit(idp)" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                                    <button @click="edit(this.idp)" class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                                                         Edit Task
                                                     </button>
                                                 </div>
@@ -155,13 +155,13 @@
 </MyModel>
 <MyModel :is-show="isShowDelete" :toggle-is-show="toggleIsShowDelete">
     <template #header>
-                <div class="">Are You Sure  </div>
+                <div class="">Are You Sure  {{ this.idp }}</div>
     </template>
 
     <div class="flex justify-center items-end py-9 ml-3">
 
-  <button @click="deleteTask" class="bg-red-300 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-l">
-    Delete
+  <button @click="deleteTask(this.idp)" class="bg-red-300 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-l">
+    Delete {{this.idp}}
   </button>
   <button @click="Cancle" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-r">
     Cancle
@@ -360,8 +360,13 @@ export default {
             this.idp = task.id;
         },
 
-        toggleIsShowDelete () {
+        toggleIsShowDelete (id) {
             this.isShowDelete = !this.isShowDelete
+            // this.title= task.title;
+            // this.time= task.time;
+            // this.date= task.date;
+            // this.details = task.details;
+            this.idp = id;
          },
         toggleIsShow(){
             this.isShow = !this.isShow
@@ -374,7 +379,14 @@ export default {
         },
             Cancle(){
                 this.toggleIsShowDelete()
-            },
+        },
+        deleteTask(id){
+            axios.delete( this.route( 'delete' ,{id:id} ) ).then( response =>
+            {
+                // this.getTasks()
+                this.toggleIsShowDelete()
+            } ).catch( errors => { console.log( errors ) } );
+        },
         submit(){
             // this.$inertia.visit(this.route('test',{name:this.name,id:this.id}))
             this.title == '' ? this.taskErorrs.title = false : this.taskErorrs.title = true
@@ -419,8 +431,8 @@ export default {
             // this.taskErorrs.title && this.taskErorrs.date && this.taskErorrs.time && this.taskErorrs.details
             // if (true)
             // {
-                axios.post( this.route( 'edit' ), {
-                    id:id,
+                axios.put( this.route( 'edit',{id:id} ), {
+
                     title: this.title,
                     date: this.date,
                     time: this.time,
@@ -442,7 +454,7 @@ export default {
                     // this.name=response.data.name;
                     // this.id=response.data.id;.catch( errors => console.log( errors ) )
                     // this.toggleIsShow();
-                } ).catch( errors => { console.log( errors ) } ).finally( () => { this.toggleIsShowEdit(task) } );
+                } ).catch( errors => { console.log( errors ) } ).finally( () => { this.toggleIsShowEdit() } );
             // }
 
         }
