@@ -5,7 +5,7 @@
 
         <div class="ml-[5vw] mr-[5vh] h-[10vh] w-[90vw] p-2 bg-black flex items-center justify-between">
             <div class="h-full min-w-[7vw] flex items-center ml-[1vw]  text-white">
-                <h5 class=" text-gray-50 text-light ">{{nameTAsk}}  </h5>
+                <h5 class=" text-gray-50 text-light ">All tasks  </h5>
             </div>
             <div class="h-full w-[5vw] flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-300 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShow" >
                 <p class="text-3xl ">+</p>
@@ -76,12 +76,12 @@
                         {{ task.details.length <= 10 ? task.details:task.details.substr(0,10) + "..." }}
                     </td>
                     <td class="py-4 px-2">
-                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-600 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShowEdit(task)" >
+                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-green-600 hover:bg-green-700 cursor-pointer rounded-lg" @click="toggleIsShowEdit(task),toTop()" >
                             Edit
                         </button>
                     </td>
                     <td class="py-4 px-2">
-                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-red-600 hover:bg-red-700 cursor-pointer rounded-lg" @click="toggleIsShowDelete(task.id)" >
+                        <button class="h-full w-[5vw] text-white flex items-center justify-center mr-[1vw] py-2 px-4 bg-red-600 hover:bg-red-700 cursor-pointer rounded-lg" @click="toggleIsShowDelete(task.id),toTop()" >
                             Delete
                         </button>
                     </td>
@@ -110,21 +110,21 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                             Title
                         </label>
-                        <input  v-model="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Mohammed">
+                        <input  v-model="titlee" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Mohammed">
                         <p v-show="taskErorrs.title" class="text-red-500 text-xs italic">Please fill out this field.</p>
                         </div>
                         <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                             Time
                         </label>
-                        <input v-model="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="time" placeholder="Doe">
+                        <input v-model="timee" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="time" placeholder="Doe">
                         <p v-show="taskErorrs.time" class="text-red-500 text-xs italic">Please fill out this field.</p>
                         </div>
                         <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                             Date
                         </label>
-                        <input v-model="date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="Doe">
+                        <input v-model="datee" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="Doe">
                         <p v-show="taskErorrs.date" class="text-red-500 text-xs italic">Please fill out this field.</p>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                             Details
                         </label>
-                        <input v-model="details" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Details">
+                        <input v-model="detailse" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Details">
                         <!-- </textarea> -->
                             <p v-show="taskErorrs.details" class="text-red-600 text-xs italic">Please fill out this field.</p>
                         </div>
@@ -155,13 +155,13 @@
 </MyModel>
 <MyModel :is-show="isShowDelete" :toggle-is-show="toggleIsShowDelete">
     <template #header>
-                <div class="">Are You Sure  {{ this.idp }}</div>
+                <div class="">Are You Sure  </div>
     </template>
 
     <div class="flex justify-center items-end py-9 ml-3">
 
   <button @click="deleteTask(this.idp)" class="bg-red-300 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-l">
-    Delete {{this.idp}}
+    Delete
   </button>
   <button @click="Cancle" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-5 rounded-r">
     Cancle
@@ -191,7 +191,7 @@
 </MyModel>
 <MyModel :is-show="isShow" :toggle-is-show="toggleIsShow">
             <template #header>
-                <div class="">Hi Omer </div>
+                <div class="">Add a New Task </div>
             </template>
             <div class="mr-10 mb-5 h-full w-[40vw] xl:flex items-center justify-center ">
                 <div class="w-full max-w-xs">
@@ -204,7 +204,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                             Title
                         </label>
-                        <input  v-model="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Mohammed">
+                        <input  v-model="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder="Mohammed">
                         <p v-show="taskErorrs.title" class="text-red-500 text-xs italic">Please fill out this field.</p>
                         </div>
                         <div class="w-full md:w-1/2 px-3">
@@ -323,6 +323,14 @@ export default {
             completed_at:this.completed_at,
             details:this.details,
             completed: this.completed,
+            titlee:this.titlee,
+            datee:this.datee,
+            timee:this.timee,
+            completed_ate:this.completed_ate,
+            detailse:this.detailse,
+            completede: this.completede,
+            scTimer: 0,
+            scY: 0,
             taskErorrs: {
               title:false,
               date:false,
@@ -336,10 +344,24 @@ export default {
     },
     mounted ()
         {
-            this.getTasks()
+        this.getTasks();
+        window.addEventListener( 'scroll', this.handleScroll );
     },
     methods: {
-
+        handleScroll: function () {
+        if (this.scTimer) return;
+        this.scTimer = setTimeout(() => {
+          this.scY = window.scrollY;
+          clearTimeout(this.scTimer);
+          this.scTimer = 0;
+        }, 100);
+        },
+        toTop: function () {
+        window.scrollTo({
+          top: 0,
+        //   behavior: "smooth"
+        });
+      },
         // hideModel(){
         //     this.isShow = false
         // },
@@ -353,10 +375,10 @@ export default {
         },
         toggleIsShowEdit (task) {
             this.isShowEdit = !this.isShowEdit
-            this.title= task.title;
-            this.time= task.time;
-            this.date= task.date;
-            this.details = task.details;
+            this.titlee= task.title;
+            this.timee= task.time;
+            this.datee= task.date;
+            this.detailse = task.details;
             this.idp = task.id;
         },
 
@@ -383,7 +405,7 @@ export default {
         deleteTask(id){
             axios.delete( this.route( 'delete' ,{id:id} ) ).then( response =>
             {
-                // this.getTasks()
+                this.getTasks()
                 this.toggleIsShowDelete()
             } ).catch( errors => { console.log( errors ) } );
         },
@@ -406,13 +428,13 @@ export default {
 
                 } ).then( response =>
                 {
-                    this.title = response.data.title;
-                    this.date = response.data.date;
-                    this.time = response.data.time;
-                    this.details = response.data.details;
-                    this.completed_at = response.data.completed_at;
-                    this.completed = response.data.completed;
-
+                    // this.title = response.data.title;
+                    // this.date = response.data.date;
+                    // this.time = response.data.time;
+                    // this.details = response.data.details;
+                    // this.completed_at = response.data.completed_at;
+                    // this.completed = response.data.completed;
+                    this.getTasks();
 
 
                     // this.name=response.data.name;
@@ -433,22 +455,22 @@ export default {
             // {
                 axios.put( this.route( 'edit',{id:id} ), {
 
-                    title: this.title,
-                    date: this.date,
-                    time: this.time,
-                    completed_at: this.completed_at,
-                    details: this.details,
-                    completed: this.completed,
+                    title: this.titlee,
+                    date: this.datee,
+                    time: this.timee,
+                    completed_at: this.completed_ate,
+                    details: this.detailse,
+                    completed: this.completede,
 
                 } ).then( response =>
                 {
-                    this.title = response.data.title;
-                    this.date = response.data.date;
-                    this.time = response.data.time;
-                    this.details = response.data.details;
-                    this.completed_at = response.data.completed_at;
-                    this.completed = response.data.completed;
-
+                    // this.title = response.data.title;
+                    // this.date = response.data.date;
+                    // this.time = response.data.time;
+                    // this.details = response.data.details;
+                    // this.completed_at = response.data.completed_at;
+                    // this.completed = response.data.completed;
+                    this.getTasks()
 
 
                     // this.name=response.data.name;

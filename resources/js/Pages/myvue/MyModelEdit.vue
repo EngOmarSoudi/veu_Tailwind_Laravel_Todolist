@@ -1,6 +1,6 @@
 <template>
   <div
-      class="absolute w-full h-screen bg-gray-900 bg-opacity-25 top-0 right-0"
+      class="absolute w-full h-screen bg-gray-200 bg-opacity-25 top-0 right-0"
       :class="isShowEdit ? 'z-5':'-z-10' "
   >
     <div class="relative w-full h-full">
