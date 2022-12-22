@@ -29,9 +29,14 @@ class TaskController extends Controller
 // //   ]
 //     }
     public function getTasks(){
-        // ddd("ddd");
-        $tasks=Task::latest()->get();
-        return response()->json($tasks);
+        // ddd("ddd");::latest()->get()
+        // $tasks=Task::latest()->get();
+        // if($tasks->get('completed') == true){
+            $tasks=Task::OrderBy('completed','asc')->get();
+            return response()->json($tasks);
+        // }
+        // return response()->json($tasks);
+        
     }
     public function Index()
     {
@@ -85,10 +90,30 @@ class TaskController extends Controller
         }
 
     }
+    public function updatecheck(Request $request, $id)
+    {
+        $exist=Task::find($id);
+        
+        if ($exist) {
+            $exist->update(
+                [
+        //             // 'title' => $request->get('title'),
+        //             // 'date' => $request->get('date'),
+        //             // 'time' => $request->get('time'),
+                    'completed' => $request->get('completed')   ? "1":"0",
+        //             // 'details' => $request->get('details'),
+                    'completed_at' => Carbon::now(),
+                ]
+            );
+        }
+        return $request->all();
+        }
+
     public function update(Request $request, $id)
     {
     //    dd($request);
-       $exist=Task::find($id);
+
+    $exist=Task::find($id);
        if($exist){
             $exist->update(
                 [

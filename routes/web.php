@@ -48,3 +48,4 @@ Route::get('getTasks',[\App\Http\Controllers\TaskController::class,'getTasks'])-
 Route::post('store',[\App\Http\Controllers\TaskController::class,'store'])->name('store');
 Route::delete('delete/{id}',[\App\Http\Controllers\TaskController::class,'delete'])->name('delete');
 Route::put('{id}',[\App\Http\Controllers\TaskController::class,'update'])->name('edit');
+Route::put('{id}',[\App\Http\Controllers\TaskController::class,'updatecheck'])->name('editcheck');

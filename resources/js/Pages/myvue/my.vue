@@ -27,9 +27,9 @@
                 <th scope="col" class="py-3 px-6">
                     #
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <!-- <th scope="col" class="py-3 px-6">
                     Completed
-                </th>
+                </th> -->
                 <th scope="col" class="py-3 px-6">
                      title
                 </th>
@@ -52,25 +52,29 @@
             </tr>
                  </thead>
                     <tbody>
-                <tr v-for="(task,index) in data1" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
+                <tr @click="updateCheck(task.id)" v-for="(task,index) in data1" :key="index"  :class="task.completed ? 'line-through bg-gray-400':''" class="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
                 <!-- <tr v-for="item in task" :key="item.id+1" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" > -->
                     <td class="py-4 px-12">
                        {{ index+1 }}
                     </td>
-                    <td class="py-4 px-12">
-                        <input type="checkbox">
-                    </td>
+                    <!-- <td class="py-4 px-12"> -->
+                        
+                        <!-- <input v-if="task.completed == true" v-model="task.completed" @change="updateCheck(task.id)" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer checked" type="checkbox" value="" id="flexCheckChecked" checked> -->
+                        <!-- <input v-else-if="task.completed == false"  v-model="task.completed" @change="updateCheck(task.id)" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer checked" type="checkbox" value="" id="flexCheckChecked" > -->
+
+                        <!-- <input   checked> -->
+                    <!-- </td> -->
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ task.title.length <= 10 ? task.title:task.title.substr(0,10) + "..." }}
                     </th>
-                    <td class="py-4 px-6">
+                    <td class="py-4 px-6 ">
                        {{ task.time }}
                     </td>
                     <td class="py-4 px-6">
                         {{ task.date }}
                     </td>
                     <td class="py-4 px-6">
-                        {{ task.Created_at }}
+                        {{ task.created_at.slice(0, 19).replace('T', ' ') }}
                     </td>
                     <td class="py-4 px-6">
                         {{ task.details.length <= 10 ? task.details:task.details.substr(0,10) + "..." }}
@@ -292,10 +296,10 @@ export default {
 //             type: Date,
 //             default:'13:41:40'
 //         },
-        completed:{
-            type: Boolean,
-            default: false,
-        },
+        // completed:{
+        //     type: Boolean,
+        //     default: true,
+        // },
 //         details:{
 //             type: String,
 //             default: "safasv",
@@ -322,7 +326,7 @@ export default {
             time:this.time,
             completed_at:this.completed_at,
             details:this.details,
-            completed: this.completed,
+            // completed: this.completed,
             titlee:this.titlee,
             datee:this.datee,
             timee:this.timee,
@@ -348,6 +352,20 @@ export default {
         window.addEventListener( 'scroll', this.handleScroll );
     },
     methods: {
+        updateCheck (id)
+        {
+            // if ( this.completed == true){
+            //         this.completed_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            // }new Date().toISOString().slice(0, 19).replace('T', ' '),
+            axios.put( this.route( 'editcheck', { id: id } ), {
+                completed_at:new Date().toISOString().slice(0, 19).replace('T', ' '),
+                completed: this.completed = !this.completed,
+            } ).then( response =>
+            {
+
+                this.getTasks();
+            } ).catch( errors => { console.log( errors ) } );
+        },
         handleScroll: function () {
         if (this.scTimer) return;
         this.scTimer = setTimeout(() => {
