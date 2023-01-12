@@ -23,6 +23,7 @@
     "dependencies": {
         "bootstrap": "^5.2.3",
         "bootstrap-vue": "^2.23.1",
-        "dayjs": "^1.11.6"
+        "dayjs": "^1.11.6",
+        "vee-validate": "^4.7.3"
     }
 }

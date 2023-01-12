@@ -1,0 +1,12 @@
+User name: epiz_33360946!
+Password:  p8gtc4n1
+Main Domain:	l3wfvqcp.epizy.com
+FTP hostname:	ftpupload.net
+FTP username:	epiz_33360946
+MySQL hostname:	sql200.epizy.com
+MySQL username:	epiz_33360946
+Hosting Volume:	vol17_2
+
+
+MySQL DB Name	           MySQL User Name	 MySQL Password	MySQL      Host Name           	PHPMyAdmin
+epiz_33360946_todolistjet 	epiz_33360946	    p8gtc4n1			sql200.epizy.com
