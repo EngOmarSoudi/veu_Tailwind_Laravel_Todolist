@@ -58,7 +58,7 @@
                        {{ index+1 }}
                     </td>
                     <!-- <td class="py-4 px-12"> -->
-                        
+
                         <!-- <input v-if="task.completed == true" v-model="task.completed" @change="updateCheck(task.id)" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer checked" type="checkbox" value="" id="flexCheckChecked" checked> -->
                         <!-- <input v-else-if="task.completed == false"  v-model="task.completed" @change="updateCheck(task.id)" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer checked" type="checkbox" value="" id="flexCheckChecked" > -->
 
@@ -200,16 +200,15 @@
             <div class="mr-10 mb-5 h-full w-[40vw] xl:flex items-center justify-center ">
                 <div class="w-full max-w-xs">
 
-                    <div class="w-full max-w-lg ml-5">
-
-
+                    <vee-form  class="w-full max-w-lg ml-5" :validation-schema="schema">
                     <div class="flex w-full flex-wrap -mx-3 mb-6 ">
                         <div class="w-full md:w px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                             Title
                         </label>
-                        <input  v-model="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder="Mohammed">
-                        <p v-show="taskErorrs.title" class="text-red-500 text-xs italic">Please fill out this field.</p>
+                            <vee-field   v-model="title" name="title" class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder="Mohammed"></vee-field>
+<!--                        <p v-show="taskErorrs.title" class="text-red-500 text-xs italic">Please fill out this field.</p>-->
+                            <error-message name="title"  class="text-red-500 text-xs italic"></error-message>
                         </div>
                         <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
@@ -245,7 +244,7 @@
                                             <!-- </div> -->
                     </div>
 
-                    </div>
+                    </vee-form>
 
                 </div>
 
@@ -315,6 +314,13 @@ export default {
     },
     data(){
         return {
+            schema:{
+                title: 'required',
+                time: 'required',
+                date: 'required',
+                details: 'required',
+
+            },
             data1:{},
             isShow:false,
             isShowEdit:false,
