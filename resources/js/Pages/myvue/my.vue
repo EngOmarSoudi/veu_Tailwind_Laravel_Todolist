@@ -214,8 +214,9 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                             Time
                         </label>
-                        <input v-model="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="time" placeholder="Doe">
+                        <vee-field v-model="time" name="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="time" placeholder="Doe"/>
                         <p v-show="taskErorrs.time" class="text-red-500 text-xs italic">Please fill out this field.</p>
+                            <error-message name="time"  class="text-red-500 text-xs italic"></error-message>
                         </div>
                         <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
@@ -232,9 +233,10 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                             Details
                         </label>
-                        <input v-model="details" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Details">
+                        <vee-field v-model="details" name="details"  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="Details"/>
                         <!-- </textarea> -->
                             <p v-show="taskErorrs.details" class="text-red-600 text-xs italic">Please fill out this field.</p>
+                            <error-message name="details"  class="text-red-500 text-xs italic"></error-message>
                         </div>
                         <!-- <div class="flex items-center justify-center"> -->
 
@@ -317,10 +319,10 @@ export default {
     data(){
         return {
             schema:{
-                title: 'required',
+                title: 'required|min:3|max:100|alpha_spaces',
                 time: 'required',
-                date: 'required:between:2022-12-04,2042-12-04',
-                details: 'required',
+                date: 'required:between:"2022-12-04","2042-12-04"',
+                details: 'required|min:3|max:250',
 
             },
             data1:{},

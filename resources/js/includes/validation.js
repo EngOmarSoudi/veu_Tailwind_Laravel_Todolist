@@ -1,5 +1,5 @@
 import { Form as veeForm,Field as veeFieled, defineRule , ErrorMessage} from "vee-validate";
-import {required , min , max , alpha_spaces as alphaSpaces , between  } from "@vee-validate/rules";
+import {required , min , max , alpha_spaces as alphaSpaces , between ,email  } from "@vee-validate/rules";
 export default{
     install(app){
         app.component('vee-form',veeForm);
@@ -10,5 +10,6 @@ export default{
         defineRule('max',max);
         defineRule('alpha_spaces',alphaSpaces);
         defineRule('between',between);
+        defineRule('email',email);
     },
 }
